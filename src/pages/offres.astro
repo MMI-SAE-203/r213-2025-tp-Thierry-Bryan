@@ -1,5 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
+import Card from "../components/Card.astro";
+
+
 const offres = [
   {
     adresse: "2821 Lake Sevilla, Palm Harbor, TX",
@@ -10,7 +13,7 @@ const offres = [
     nomMaison: "Beverly Springfield",
     prix: 2700,
     surface: 45,
-    imgUrl: "image1.png",
+    imgUrl: "/maison1.jpg",
   },
   {
     adresse: "2699 Green Valley, Highland Lake",
@@ -21,7 +24,7 @@ const offres = [
     nomMaison: "Palm Harbor",
     prix: 2095,
     surface: 42,
-    imgUrl: "image2.png",
+    imgUrl: "/maison2.jpg",
   },
   {
     adresse: "909 Woodland St, Michigan, IN",
@@ -32,25 +35,27 @@ const offres = [
     nomMaison: "Faulkner Ave",
     prix: 4550,
     surface: 80,
-    imgUrl: "image3.png",
+    imgUrl: "/maison3.jpg",
   },
 ];
 ---
 
 <Base titre="Accueil">
   <h1>Offres</h1>
-  <div>
-{ 
-  offres.map((nomMaison) => (
-        <ul>
-          <li>{nomMaison.adresse}</li>
-          <li>{nomMaison.prix} €</li>
-          <li>{nomMaison.surface} m²</li>
-          <li>{nomMaison.nbChambres} chambres</li>
-          <li>{nomMaison.nbSdb} salles de bains</li>
-          <li>{nomMaison.favori}</li>   
-          </ul>
-    ))
-}
-</div>
+  {offres.map((offre) => <Card {...offres} />)}
+  <div x-data="{ showFavorites: false }">
+    <!-- Bouton pour alterner entre favoris et tout afficher -->
+    <button @click="showFavorites = !showFavorites">
+      <span x-show="!showFavorites">Afficher les favoris</span>
+      <span x-show="showFavorites">Afficher tout</span>
+    </button>
+
+    <!-- Section affichant les offres -->
+    <div x-show="showFavorites">
+      {offres.map((offre) => offre.favori && <Card {...offre} />)}
+    </div>
+    <div x-show="!showFavorites">
+      {offres.map((offre) => <Card {...offre} />)}
+    </div>
+  </div>
 </Base>
