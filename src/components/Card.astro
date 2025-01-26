@@ -18,17 +18,32 @@ const { nomMaison, adresse, favori, nbChambres, nbSdb, prix, surface, imgUrl } =
   </ul>
 </div>
 -->
-<div class="flex align-center justify-center">
-  <div class="flex flex-col w-1/2">
+<div class="flex align-center justify-center mx-4">
+  <div class="flex flex-col border-2 my-4 rounded-2xl">
     <div>
-      <img src={imgUrl} alt="" />
+      <img class="rounded-t-md" src={imgUrl} alt="image maison" />
     </div>
     <div>
-      <div class="flex justify-between">
-        <p>{prix}/month</p>
-        <p>{nomMaison}</p>
+      <div class="flex justify-between px-5 pt-7 pb-4">
+        <div class="flex justify-between flex-col">
+          <div class="flex text-center">
+            <p class="text-indigo-500 text-2xl font-bold">${prix}</p>
+            <p>/month</p>
+          </div>
+          <p class="text-2xl font-bold">{nomMaison}</p>
+        </div>
+        <div>
+          {favori}
+        </div>
       </div>
-      <div>{favori}</div>
+      <p class="pb-4 px-5 text-base font-normal text-gray-500">{adresse}</p>
+      <div
+        class="flex justify-between pb-7 px-5 pt-4 border-t-2 *:text-xs *:font-normal *:text-gray-500"
+      >
+        <p>{nbChambres} beds</p>
+        <p>{nbSdb} bathrooms</p>
+        <p>{surface} m²</p>
+      </div>
     </div>
   </div>
 </div>
