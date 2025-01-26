@@ -2,7 +2,6 @@
 import Base from "../layouts/Base.astro";
 import Card from "../components/Card.astro";
 
-
 const offres = [
   {
     adresse: "2821 Lake Sevilla, Palm Harbor, TX",
@@ -40,10 +39,10 @@ const offres = [
 ];
 ---
 
-<Base titre="Accueil" >
+<Base titre="Accueil">
   <h1>Offres</h1>
-  {offres.map((offre) => <Card {...offres} />)}
-  <div x-data="{ showFavorites: false }" >
+  <!--{offres.map((offre) => <Card {...offres} />)}-->
+  <div x-data="{ showFavorites: false }">
     <!-- Bouton pour alterner entre favoris et tout afficher -->
     <button @click="showFavorites = !showFavorites">
       <span x-show="!showFavorites">Afficher les favoris</span>
