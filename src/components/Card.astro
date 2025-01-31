@@ -7,29 +7,14 @@ const {
   nbSdb,
   prix,
   bysurface,
-  imgUrl,
+  images,
 } = Astro.props;
 ---
 
-<!--
-<div x-data=`{ favori: ${favori}}` x-bind:class="{'bg-yellow-200': favori}">
-  <ul>
-    <li>{nomMaison}</li>
-    <li>{adresse}</li>
-    <li>{favori}</li>
-    <li>{nbChambres}</li>
-    <li>{nbSdb}</li>
-    <li>{prix}</li>
-    <li>{surface}</li>
-    <li><img src={imgUrl} alt="" /></li>
-    <button x-on:click="favori = !favori">Favori</button>
-  </ul>
-</div>
--->
 <div class="flex align-center justify-center mx-4">
   <div class="flex flex-col border-2 my-4 rounded-2xl w-1/2">
     <div>
-      <img class="rounded-t-md" src={imgUrl} alt="image maison" />
+      <img class="rounded-t-md" src={images} alt="image maison" />
     </div>
     <div>
       <div class="flex justify-between px-5 pt-7 pb-4">
