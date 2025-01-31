@@ -1,7 +1,9 @@
 ---
 import Base from "../layouts/Base.astro";
 import Card from "../components/Card.astro";
-
+import { getOffres } from "../backend.mjs";
+const offres = await getOffres();
+/*
 const offres = [
   {
     adresse: "2821 Lake Sevilla, Palm Harbor, TX",
@@ -36,7 +38,7 @@ const offres = [
     surface: 80,
     imgUrl: "/maison3.jpg",
   },
-];
+];*/
 ---
 
 <Base titre="Accueil">

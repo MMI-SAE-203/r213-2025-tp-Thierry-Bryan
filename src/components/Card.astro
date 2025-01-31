@@ -1,6 +1,14 @@
 ---
-const { nomMaison, adresse, favori, nbChambres, nbSdb, prix, surface, imgUrl } =
-  Astro.props;
+const {
+  nomMaison,
+  adresse,
+  favori,
+  nbChambres,
+  nbSdb,
+  prix,
+  bysurface,
+  imgUrl,
+} = Astro.props;
 ---
 
 <!--
@@ -19,7 +27,7 @@ const { nomMaison, adresse, favori, nbChambres, nbSdb, prix, surface, imgUrl } =
 </div>
 -->
 <div class="flex align-center justify-center mx-4">
-  <div class="flex flex-col border-2 my-4 rounded-2xl">
+  <div class="flex flex-col border-2 my-4 rounded-2xl w-1/2">
     <div>
       <img class="rounded-t-md" src={imgUrl} alt="image maison" />
     </div>
@@ -42,7 +50,7 @@ const { nomMaison, adresse, favori, nbChambres, nbSdb, prix, surface, imgUrl } =
       >
         <p>{nbChambres} beds</p>
         <p>{nbSdb} bathrooms</p>
-        <p>{surface} m²</p>
+        <p>{bysurface} m²</p>
       </div>
     </div>
   </div>
