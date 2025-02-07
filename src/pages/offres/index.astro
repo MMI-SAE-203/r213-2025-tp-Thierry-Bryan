@@ -56,10 +56,10 @@ const offres = [
 
     <!-- Section affichant les offres -->
     <div x-show="showFavorites">
-      {offres.map((offre) => offre.favori && <Card {...offre} />)}
+      {offres.map((offre: any) => offre.favori && <Card {...offre} />)}
     </div>
     <div x-show="!showFavorites">
-      {offres.map((offre) => <Card {...offre} />)}
+      {offres.map((offre: any) => <Card {...offre} />)}
     </div>
   </div>
 </Base>
