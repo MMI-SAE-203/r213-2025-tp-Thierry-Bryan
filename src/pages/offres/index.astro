@@ -4,42 +4,6 @@ import Card from "../../components/Card.astro";
 
 import { getOffres } from "../../backend.mjs";
 const offres = await getOffres();
-/*
-const offres = [
-  {
-    adresse: "2821 Lake Sevilla, Palm Harbor, TX",
-    favori: true,
-    id: "64l3n8nar836i5j",
-    nbChambres: 4,
-    nbSdb: 2,
-    nomMaison: "Beverly Springfield",
-    prix: 2700,
-    surface: 45,
-    imgUrl: "/maison1.jpg",
-  },
-  {
-    adresse: "2699 Green Valley, Highland Lake",
-    favori: true,
-    id: "lo831zeg10hpm9y",
-    nbChambres: 4,
-    nbSdb: 2,
-    nomMaison: "Palm Harbor",
-    prix: 2095,
-    surface: 42,
-    imgUrl: "/maison2.jpg",
-  },
-  {
-    adresse: "909 Woodland St, Michigan, IN",
-    favori: false,
-    id: "s1zuhj19x8eb242",
-    nbChambres: 4,
-    nbSdb: 3,
-    nomMaison: "Faulkner Ave",
-    prix: 4550,
-    surface: 80,
-    imgUrl: "/maison3.jpg",
-  },
-];*/
 ---
 
 <Base titre="Accueil">
@@ -53,9 +17,13 @@ const offres = [
     </button>
     <button @click="showlists">liste</button>
     <button @click="showgrid">grille</button>
-
-    <!-- Lien vers la page des maisons avec surface > 80 m² -->
-    <a href="/offres/surface/80">Maisons avec surface > 80 m²</a>
+    <div>
+      <!-- Lien vers la page des maisons avec surface > 80 m² -->
+      <a href="/offres/surface/80">Maisons avec surface supérieur à 80 m²</a>
+    </div>
+    <div>
+      <a href="/offres/prix/400000">Maisons dont le prix est inférieur à 400000</a>
+    </div>
 
     <!-- Section affichant les offres -->
     <div x-show="showFavorites">

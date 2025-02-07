@@ -33,3 +33,8 @@ export async function bySurface(surface){
     const bysurface = await pb.collection('Maison').getFullList({filter: `surface>${surface}`});
     return bysurface;
 }
+
+export async function allMaisonsSorted(prix){
+    const Records = await pb.collection('Maison').getFullList({filter: `prix<${prix}`});
+    return Records;
+}
