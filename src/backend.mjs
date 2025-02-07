@@ -42,5 +42,5 @@ export async function allMaisonsSorted(prix){
 */
 
 export async function allMaisonsSorted(prixMin, prixMax){
-    const Records = await pb.collection('Maison').getFullList({filter: `${prixMin}<prix && prix<${prix}`});
+    const Records = await pb.collection('Maison').getFullList({filter: `${prixMin}<prix && prix<${prixMax}`});
     return Records;}
