@@ -34,7 +34,13 @@ export async function bySurface(surface){
     return bysurface;
 }
 
+/*
 export async function allMaisonsSorted(prix){
     const Records = await pb.collection('Maison').getFullList({filter: `prix<${prix}`});
     return Records;
 }
+*/
+
+export async function allMaisonsSorted(prixMin, prixMax){
+    const Records = await pb.collection('Maison').getFullList({filter: `${prixMin}<prix && prix<${prix}`});
+    return Records;}
