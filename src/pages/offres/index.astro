@@ -54,6 +54,9 @@ const offres = [
     <button @click="showlists">liste</button>
     <button @click="showgrid">grille</button>
 
+    <!-- Lien vers la page des maisons avec surface > 80 m² -->
+    <a href="/offres/surface/80">Maisons avec surface > 80 m²</a>
+
     <!-- Section affichant les offres -->
     <div x-show="showFavorites">
       {offres.map((offre: any) => offre.favori && <Card {...offre} />)}

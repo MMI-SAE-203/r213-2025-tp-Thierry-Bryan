@@ -1,0 +1,17 @@
+---
+import { bySurface } from "../../../backend.mjs";
+import Base from "../../../layouts/Base.astro";
+
+const { surface } = Astro.params;
+const offres = await bySurface(surface);
+console.log(offres);
+if (!offres) {
+  return Astro.redirect("/offres");
+}
+---
+
+<Base>
+  {offres.map((offre: any) => (
+        <p>Surface {offre.surface}</p>
+  ))}
+</Base>
