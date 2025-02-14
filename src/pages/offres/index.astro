@@ -1,13 +1,61 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Card from "../../components/Card.astro";
+import { pb } from "../../backend.mjs";
 
 import { getOffres } from "../../backend.mjs";
-const offres = await getOffres();
+//const offres = await getOffres();
+
+let message = "";
+let offres = [];
+if (Astro.request.method === "POST") {
+  const data = await Astro.request.formData();
+  const minPrix = parseInt(data.get("minPrix") as string);
+  const maxPrix = parseInt(data.get("maxPrix") as string);
+
+  if (minPrix > 0 && maxPrix > 0 && maxPrix > minPrix) {
+    offres = await filterByPrix(minPrix, maxPrix);
+    if (offres.length === 0) {
+      message = `Pas d'offres entre ${minPrix}€ et ${maxPrix}€`;
+    } else {
+      message = `Liste des offres entre ${minPrix}€ et ${maxPrix}€`;
+    }
+  } else {
+    message = "Veuillez entrer des valeurs valides pour le prix.";
+    offres = await getOffres();
+  }
+} else {
+  offres = await getOffres();
+}
+
+export async function filterByPrix(prixMin: number, prixMax: number) {
+  try {
+    let data = await pb.collection("Maison").getFullList({
+      sort: "-created",
+      filter: `prix >= ${prixMin} && prix <= ${prixMax}`,
+    });
+    data = data.map((maison) => {
+      maison.imageUrl = pb.files.getURL(maison, maison.image);
+      return maison;
+    });
+    return data;
+  } catch (error) {
+    console.log(
+      "Une erreur est survenue en filtrant la liste des maisons",
+      error
+    );
+    return [];
+  }
+}
 ---
 
 <Base titre="Accueil">
   <h1>Offres</h1>
+  <form action="/offres" method="POST">
+    <input type="number" name="minPrix" placeholder="Prix minimum" />
+    <input type="number" name="maxPrix" placeholder="Prix maximum" />
+    <input type="submit" value="Filtrer par prix" />
+  </form>
   <!--{offres.map((offre) => <Card {...offres} />)}-->
   <div x-data="{ showFavorites: false }">
     <!-- Bouton pour alterner entre favoris et tout afficher -->
@@ -22,7 +70,9 @@ const offres = await getOffres();
       <a href="/offres/surface/80">Maisons avec surface supérieur à 80 m²</a>
     </div>
     <div>
-      <a href="/offres/prix/400000">Maisons dont le prix est inférieur à 400000</a>
+      <a href="/offres/prix/400000"
+        >Maisons dont le prix est inférieur à 400000</a
+      >
     </div>
 
     <!-- Section affichant les offres -->
