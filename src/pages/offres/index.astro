@@ -1,10 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Card from "../../components/Card.astro";
-import { pb } from "../../backend.mjs";
-
-import { getOffres } from "../../backend.mjs";
-//const offres = await getOffres();
+import { filterByPrix, getOffres } from "../../backend.mjs";
 
 let message = "";
 let offres = [];
@@ -28,59 +25,78 @@ if (Astro.request.method === "POST") {
   offres = await getOffres();
 }
 
-export async function filterByPrix(prixMin: number, prixMax: number) {
-  try {
-    let data = await pb.collection("Maison").getFullList({
-      sort: "-created",
-      filter: `prix >= ${prixMin} && prix <= ${prixMax}`,
-    });
-    data = data.map((maison) => {
-      maison.imageUrl = pb.files.getURL(maison, maison.image);
-      return maison;
-    });
-    return data;
-  } catch (error) {
-    console.log(
-      "Une erreur est survenue en filtrant la liste des maisons",
-      error
-    );
-    return [];
-  }
-}
+
 ---
 
 <Base titre="Accueil">
-  <h1>Offres</h1>
-  <form action="/offres" method="POST">
-    <input type="number" name="minPrix" placeholder="Prix minimum" />
-    <input type="number" name="maxPrix" placeholder="Prix maximum" />
-    <input type="submit" value="Filtrer par prix" />
-  </form>
-  <!--{offres.map((offre) => <Card {...offres} />)}-->
-  <div x-data="{ showFavorites: false }">
-    <!-- Bouton pour alterner entre favoris et tout afficher -->
-    <button @click="showFavorites = !showFavorites">
-      <span x-show="!showFavorites">Afficher les favoris</span>
-      <span x-show="showFavorites">Afficher tout</span>
-    </button>
-    <button @click="showlists">liste</button>
-    <button @click="showgrid">grille</button>
-    <div>
-      <!-- Lien vers la page des maisons avec surface > 80 m² -->
-      <a href="/offres/surface/80">Maisons avec surface supérieur à 80 m²</a>
-    </div>
-    <div>
-      <a href="/offres/prix/400000"
-        >Maisons dont le prix est inférieur à 400000</a
+  <div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Offres</h1>
+    <p>{message}</p>
+    <form action="/offres" method="POST" class="mb-4 flex space-x-2">
+      <input
+        type="number"
+        name="minPrix"
+        placeholder="Prix minimum"
+        class="border p-2 rounded"
+      />
+      <input
+        type="number"
+        name="maxPrix"
+        placeholder="Prix maximum"
+        class="border p-2 rounded"
+      />
+      <input
+        type="submit"
+        value="Filtrer par prix"
+        class="bg-blue-500 text-white p-2 rounded"
+      />
+    </form>
+    <div x-data="{ showFavorites: false, showList: true }">
+      <div class="flex space-x-2 mb-4">
+        <button
+          @click="showFavorites = !showFavorites"
+          class="bg-gray-300 p-2 rounded"
+        >
+          <span x-show="!showFavorites">Afficher les favoris</span>
+          <span x-show="showFavorites">Afficher tout</span>
+        </button>
+        <button
+          @click="showList = true; showGrid = false"
+          class="bg-gray-300 p-2 rounded">Liste</button
+        >
+        <button
+          @click="showList = false; showGrid = true"
+          class="bg-gray-300 p-2 rounded">Grille</button
+        >
+      </div>
+      <div class="mb-4">
+        <a href="/offres/surface/80" class="text-blue-500 underline"
+          >Maisons avec surface supérieur à 80 m²</a
+        >
+      </div>
+      <div class="mb-4">
+        <a href="/offres/prix/400000" class="text-blue-500 underline"
+          >Maisons dont le prix est inférieur à 400000</a
+        >
+      </div>
+      <div x-show="showFavorites && showList" class="space-y-4">
+        {offres.map((offre: any) => offre.favori && <Card {...offre} />)}
+      </div>
+      <div x-show="!showFavorites && showList" class="space-y-4">
+        {offres.map((offre: any) => <Card {...offre} />)}
+      </div>
+      <div
+        x-show="showFavorites && !showList"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
       >
-    </div>
-
-    <!-- Section affichant les offres -->
-    <div x-show="showFavorites">
-      {offres.map((offre: any) => offre.favori && <Card {...offre} />)}
-    </div>
-    <div x-show="!showFavorites">
-      {offres.map((offre: any) => <Card {...offre} />)}
+        {offres.map((offre: any) => offre.favori && <Card {...offre} />)}
+      </div>
+      <div
+        x-show="!showFavorites && !showList"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+      >
+        {offres.map((offre: any) => <Card {...offre} />)}
+      </div>
     </div>
   </div>
 </Base>
