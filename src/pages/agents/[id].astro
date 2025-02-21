@@ -1,0 +1,27 @@
+---
+import { allMaisonsByAgentsId } from "../../backend.mjs";
+import Base from "../../layouts/Base.astro";
+const { id } = Astro.params;
+
+
+const maisons = await allMaisonsByAgentsId(id);
+---
+
+<Base>
+    <div>
+        <h1>Offres de l'agent</h1>
+        <div>
+            {
+                maisons.map((maison) => (
+                    <div>
+                        <ul>
+                            <li>titre : {maison.titre}</li>
+                            <li>prix : {maison.prix}</li>
+                            <li>surface : {maison.surface}</li>
+                        </ul>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</Base>

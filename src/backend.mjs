@@ -90,3 +90,18 @@ export async function allAgents() {
         return [];
     }
 }
+
+export async function allMaisonsByAgentsId(email) {
+    try {
+          const allRecord = await pb.collection("Maison").getFullList({
+        filter: `Agent = ${email}`,
+        expand: "Agent",
+  });
+  return allRecord;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la liste des maisons', error);
+        return [];
+        
+    }
+
+}

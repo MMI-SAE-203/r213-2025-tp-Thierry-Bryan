@@ -1,5 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
+import { allMaisonsByAgentsId } from "../../backend.mjs";
 import { allAgents } from "../../backend.mjs";
 
 const agents = await allAgents();
@@ -7,18 +8,26 @@ console.log(agents);
 ---
 
 <Base titre="AGENTS">
-  <div>
-    <h1>AGENTS</h1>
+  <div class="text-center my-8">
+    <h1 class="text-4xl font-bold">AGENTS</h1>
   </div>
-  <div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {
       agents.map((agent) => (
-        <div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
           <ul>
-            <li>nom : {agent.nom}</li>
-            <li>Prénom : {agent.prenom}</li>
-            <li>email : {agent.email}</li>
+            <li class="text-lg font-semibold">Nom : {agent.nom}</li>
+            <li class="text-lg font-semibold">Prénom : {agent.prenom}</li>
+            <li class="text-lg font-semibold">Email : {agent.email}</li>
           </ul>
+          <div class="mt-5 mx-5">
+            <a
+              href={`../agents/${agent.id}`}
+              class="text-lg font-bold border-2 p-1 border-yellow-500"
+            >
+              Voir l'offre de cette agent
+            </a>
+          </div>
         </div>
       ))
     }
