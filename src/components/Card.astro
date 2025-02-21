@@ -2,8 +2,8 @@
 const { ...offre } = Astro.props;
 ---
 
-<div class="flex align-center justify-center mx-4">
-  <div class="flex flex-col border-2 my-4 rounded-2xl w-1/2">
+<div class="flex align-center justify-center mx-4 flex-col">
+  <div class="flex flex-col border-2 my-4 rounded-2xl">
     <div>
       <img class="rounded-t-md" src={offre.images} alt="image maison" />
     </div>
@@ -20,7 +20,9 @@ const { ...offre } = Astro.props;
           {offre.favori}
         </div>
       </div>
-      <p class="pb-4 px-5 text-base font-normal text-gray-500">{offre.adresse}</p>
+      <p class="pb-4 px-5 text-base font-normal text-gray-500">
+        {offre.adresse}
+      </p>
       <div
         class="flex justify-between pb-7 px-5 pt-4 border-t-2 *:text-xs *:font-normal *:text-gray-500"
       >
@@ -28,7 +30,12 @@ const { ...offre } = Astro.props;
         <p>{offre.nbSdb} bathrooms</p>
         <p>{offre.bysurface} m²</p>
       </div>
-      <a href={`../offres/${offre.id}`}>Voir plus</a>
     </div>
+  </div>
+  <div class="flex justify-center">
+    <a
+      class="border-2 rounded-2xl p-2 px-5 text-gray-900 bg-yellow-500 border-gray-900"
+      href={`../offres/${offre.id}`}>Voir plus</a
+    >
   </div>
 </div>

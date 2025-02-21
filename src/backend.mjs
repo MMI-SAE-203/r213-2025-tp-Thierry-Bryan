@@ -80,3 +80,13 @@ export async function filterByPrix(prixMin, prixMax) {
     return [];
   }
 }
+
+export async function allAgents() {
+    try {
+        let data = await pb.collection('Agent').getFullList();
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la liste des agents', error);
+        return [];
+    }
+}

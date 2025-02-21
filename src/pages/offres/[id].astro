@@ -10,11 +10,36 @@ if (!offre) {
 ---
 
 <Base titre={offre.nom_maison}>
-  <h2>{offre.nom_maison}</h2>
-  <ul>
-    <li>{offre.adresse}</li>
-    <li>{offre.prix}</li>
-    <li>{offre.nbChambres}</li>
-    <li>{offre.surface}</li>
-  </ul>
+  <div class="mt-5 mx-5">
+    <a href="/offres" class="text-lg font-bold border-2 p-1 border-yellow-500">Back to map</a>
+  </div>
+  <div class="flex flex-col border-2 my-4 rounded-2xl">
+    <div>
+      <img class="rounded-t-md" src={offre.images} alt="image maison" />
+    </div>
+    <div>
+      <div class="flex justify-between px-5 pt-7 pb-4">
+        <div class="flex justify-between flex-col">
+          <div class="flex text-center">
+            <p class="text-indigo-500 text-2xl font-bold">${offre.prix}</p>
+            <p>/month</p>
+          </div>
+          <p class="text-2xl font-bold">{offre.nom_maison}</p>
+        </div>
+        <div>
+          {offre.favori}
+        </div>
+      </div>
+      <p class="pb-4 px-5 text-base font-normal text-gray-500">
+        {offre.adresse}
+      </p>
+      <div
+        class="flex justify-between pb-7 px-5 pt-4 border-t-2 *:text-xs *:font-normal *:text-gray-500"
+      >
+        <p>{offre.nbChambres} beds</p>
+        <p>{offre.nbSdb} bathrooms</p>
+        <p>{offre.bysurface} m²</p>
+      </div>
+    </div>
+  </div>
 </Base>

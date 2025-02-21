@@ -1,0 +1,26 @@
+---
+import Base from "../../layouts/Base.astro";
+import { allAgents } from "../../backend.mjs";
+
+const agents = await allAgents();
+console.log(agents);
+---
+
+<Base titre="AGENTS">
+  <div>
+    <h1>AGENTS</h1>
+  </div>
+  <div>
+    {
+      agents.map((agent) => (
+        <div>
+          <ul>
+            <li>nom : {agent.nom}</li>
+            <li>Prénom : {agent.prenom}</li>
+            <li>email : {agent.email}</li>
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</Base>
